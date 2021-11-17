@@ -5,7 +5,7 @@
     <input type="text" placeholder="添加新的todo" id="add" class="form-control" v-model="value" @keydown.enter="add">
     <el-button type="primary" @click="add">添加todo</el-button>
   </div>
-  <Child :state="state" @remove="remove" @change="change" @finished="finished" :count="count" :donecount="donecount"></Child>
+  <Child :state="state" @remove="remove" @change="change" :finished="finished" :count="count" :donecount="donecount"></Child>
 </template>
 
 <script setup>
@@ -32,7 +32,6 @@ const remove= (index) =>{
 }
 const state =reactive({
   value:'',
-  editValue:'',
   lists:[
     {
         name:'1',
