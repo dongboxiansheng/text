@@ -1,24 +1,27 @@
 <template>
-  <div class="container"></div>
+  <el-container>
+  <el-header>
   <h1>Todolist</h1>
   <h3>添加新的todo</h3>
   <div class="form-group">
     <input type="text" placeholder="添加新的todo" id="add" class="form-control" v-model="value" @keydown.enter="add">
+    <el-button type="primary" @click="add">添加todo</el-button>
   </div>
-  <button type="button" class="btn btn-primary btn-lg btn-block" @click="add">確定添加</button>
-
+  </el-header>
+  <el-main>
+  <h3>正在进行 <span>{{count}}</span></h3>
   <ul class="list-group">
-    <template v-for="(item,index) in lists">
+    <template v-for="(item,index) in state.lists">
       <li class="list-group-item" v-if="!item.checked"  :key="index" @click="()=>item.checked=!item.checked ">
       <div class="form-group form-check" >
-        <input type="checkbox" class="form-check-input" :id="'item-'+index" v-model="item.checked">
+        <input type="checkbox" class="form-check-input" :id="'item-'+index" v-model="item.checked" @click="change">
         <label :for="'item-'+index" class="form-check-label">{{item.name}}</label>
-        <button @click="remove(index)">刪除</button>
+        <el-button type="danger" @click="remove(index)">删除</el-button>
       </div>
     </li>
     </template>
   </ul>
-  <h3>已完成的</h3>
+    <h3>已完成的 <span>{{donecount}}</span></h3>
    <ul class="list-group">
     <li  class="list-group-item" v-for="(item,index) in finished" :key="'finished-'+index">
       <div class="form-group form-check">
@@ -27,29 +30,38 @@
       </div>
     </li>
   </ul>
+  </el-main>
+  </el-container>
 </template>
 
-<script>
-import {computed, reactive, toRefs} from 'vue'
-export default {
- name:"Home",
- setup(){
+<script setup>
 
-   const add =()=>{
-     state.lists.push({
-       name:state.value,
+import { reactive,ref,computed} from "vue";
+
+const count = ref(3)
+const donecount = ref(0)
+const add = ()=>{
+  count.value++;
+   state.lists.push({
+      name:state.value,
        checked:false,
        isEdit:false,
-     })
-     state.value =''
-   }
-   const remove= (index) =>{
+   })
+   state.value =''
+}
+const remove= (index) =>{
+      count.value--;
      state.lists.splice(index,1)
    }
-   const state = reactive({
-     value:'',
-     editValue:'',
-     lists:[{
+  const change = ()=>{
+    donecount.value++;
+    count.value--;
+  }
+const state =reactive({
+  value:'',
+  editValue:'',
+  lists:[
+    {
         name:'1',
         checked:false,
         isEdit:false
@@ -63,11 +75,11 @@ export default {
         name:'3',
         checked:false,
         isEdit:false
-      }
-      ],
-      finished:computed(()=>state.lists.filter((item)=>item.checked==true))
-   })
-   return {...toRefs(state),add,remove}
- }
-}
+      } 
+  ]
+})
+const finished = computed(()=>{
+  return state.lists.filter((item)=>item.checked==true)
+})
 </script>
+
