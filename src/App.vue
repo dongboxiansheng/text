@@ -2,7 +2,7 @@
   <h1>Todolist</h1>
   <el-form class="demo-ruleForm" >
     <div class="header">
-    <el-input v-model="input" placeholder="添加新的todo"  id="add"  @keydown.enter="add" class="input" />
+    <el-input v-model="input" placeholder="添加新的todo"  id="add"  @blur="add" class="input" />
     <!-- <input type="text" placeholder="添加新的todo" id="add" class="form-control" v-model="state.value" @keydown.enter="add"> -->
     <el-button type="primary" @click="add" class="button">添加todo</el-button>
   </div>
@@ -22,12 +22,13 @@ const remove= (index) =>{
       count.value--;
      state.lists.splice(index,1)
    }
-  const change = ()=>{
+  const change:any = ()=>{
     count.value--;
     donecount.value++;
     console.log(finished.value);
   }
-  const add = ()=>{
+
+  const add:any = ()=>{
   count.value++;
    state.lists.push({
       name:input.value,
@@ -36,7 +37,7 @@ const remove= (index) =>{
    })
    state.value =''
 }
-const state =reactive({
+const state:any =reactive({
   value:'',
   lists:[
     {
