@@ -1,36 +1,43 @@
 <template>
-<el-card class="box-card">
-  <div class="card-header">
+<el-form class="demo-ruleForm">
+<div class="card-header">
     <h3>正在进行 <span>{{props.count}}</span></h3>
-        <ul class="list-group">
+        <el-scrollbar max-height="150px">
+           <ul>
        <template v-for="(item,index) in state.lists">
-      <li class="list-group-item" v-if="!item.checked"  :key="index" @click="()=>item.checked=!item.checked ">
+      <li v-if="!item.checked"  :key="index">
       <div class="form-group form-check" >
-        <input type="checkbox" class="form-check-input" :id="'item-'+index" v-model="item.checked" @click="change">
+        <el-checkbox v-model="item.checked" :id="'item-'+index" @click="change">
         <label :for="'item-'+index" class="form-check-label">{{item.name}}</label>
+        </el-checkbox>
+        <!-- <input type="checkbox" class="form-check-input" :id="'item-'+index" v-model="item.checked" @click="change">
+        <label :for="'item-'+index" class="form-check-label">{{item.name}}</label> -->
         <el-button type="danger" @click="remove(index)">删除</el-button>
       </div>
     </li>
     </template>
         </ul>
+        </el-scrollbar>
     <h3>已完成的 <span>{{props.donecount}}</span></h3>
-   <ul class="list-group">
-    <li  class="list-group-item" v-for="(item,index) in finished" :key="'finished-'+index">
+   <ul>
+    <li  v-for="(item,index) in finished" :key="'finished-'+index">
       <div class="form-group form-check">
-        <input type="checkbox" class="form-check-input" :id="'finished-'+index" v-model="item.checked" disabled>
-        <label :for="'finished-'+index" class="form-check-label">{{item.name}}</label>
+        <el-checkbox v-model="item.checked" :id="'finished-'+index" disabled>
+        <label :for="'finished-'+index" >{{item.name}}</label>
+        </el-checkbox>
       </div>
     </li>
   </ul>
       </div>
-</el-card>
+</el-form>
 </template>
 
-<script setup>
+<script setup lang="ts">
+
 import { defineProps,defineEmits } from 'vue'
 const props=defineProps({
   state:{
-    type:Array,
+    type:Object,
     require:true
   },
   count:{
@@ -39,6 +46,10 @@ const props=defineProps({
   },
   donecount:{
     type:Number,
+    require:true
+  },
+  finished:{
+    type:Object,
     require:true
   }
 })
@@ -51,8 +62,12 @@ const remove =(index)=>{
 const change = ()=>{
   emit('change')
 }
-const finished=()=>{
-  emit('finished')
-}
- console.log(props.state)
+ console.log(props.state.lists)
+ 
 </script>
+
+<style>
+ul{
+  list-style:none ;
+}
+</style>
