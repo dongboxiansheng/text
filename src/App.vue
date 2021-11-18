@@ -2,13 +2,13 @@
   <h1>Todolist</h1>
   <h3>添加新的todo</h3>
   <div class="form-group">
-    <input type="text" placeholder="添加新的todo" id="add" class="form-control" v-model="value" @keydown.enter="add">
+    <input type="text" placeholder="添加新的todo" id="add" class="form-control" v-model="state.value" @keydown.enter="add">
     <el-button type="primary" @click="add">添加todo</el-button>
   </div>
   <Child :state="state" @remove="remove" @change="change" :finished="finished" :count="count" :donecount="donecount"></Child>
 </template>
 
-<script setup>
+<script   setup >
 import Child from './components/Child.vue'
 import { reactive,ref,computed} from "vue";
 const count = ref(3)
@@ -48,7 +48,7 @@ const state =reactive({
         checked:false,
         isEdit:false
       } 
-  ]
+  ],
 })
 const finished = computed(()=>{
   return state.lists.filter((item)=>item.checked==true)
