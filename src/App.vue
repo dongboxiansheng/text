@@ -8,7 +8,7 @@
   </div>
    <br>
    <br>
-  <Child :state="state" @remove="remove" @change="change" :finished="finished" :count="count" :donecount="donecount"></Child>
+  <Child :state="state" @remove="remove"  :finished="finished" :count="count" :donecount="donecount" :finishing="finishing"></Child>
   </el-form>
 </template>
 
@@ -22,14 +22,14 @@ const input =ref<Object>([])
 const count = ref<number>(3)
 const donecount = ref<number>(0)
 const remove= (index) =>{
-      count.value--;
+      // count.value--;
      state.lists.splice(index,1)
    }
-  const change:any = ()=>{
-    count.value--;
-    donecount.value++;
-    console.log(finished.value);
-  }
+  // const change:any = ()=>{
+  //   count.value--;
+  //   donecount.value++;
+  //   console.log(finished.value);
+  // }
 
   const add:any = ()=>{
   count.value++;
@@ -63,7 +63,9 @@ const state:any =reactive({
 const finished = computed(()=>{
   return state.lists.filter((item)=>item.checked==true)
 })
-
+const finishing =computed(()=>{
+  return state.lists.filter((item)=>item.checked==false)
+})
 </script>
 
 <style lang="scss">
