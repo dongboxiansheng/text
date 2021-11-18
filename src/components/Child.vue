@@ -4,7 +4,7 @@
     <h3>正在进行 <span>{{props.count}}</span></h3>
         <ul class="list-group">
        <template v-for="(item,index) in state.lists">
-      <li class="list-group-item" v-if="!item.checked"  :key="index" @click="()=>item.checked=!item.checked ">
+      <li class="list-group-item" v-if="!item.checked"  :key="index">
       <div class="form-group form-check" >
         <input type="checkbox" class="form-check-input" :id="'item-'+index" v-model="item.checked" @click="change">
         <label :for="'item-'+index" class="form-check-label">{{item.name}}</label>
@@ -17,8 +17,8 @@
    <ul class="list-group">
     <li  class="list-group-item" v-for="(item,index) in finished" :key="'finished-'+index">
       <div class="form-group form-check">
-        <input type="checkbox" class="form-check-input" :id="'finished-'+index" v-model="item.checked" disabled>
-        <label :for="'finished-'+index" class="form-check-label">{{item.name}}</label>
+        <input type="checkbox"  :id="'finished-'+index" v-model="item.checked" disabled>
+        <label :for="'finished-'+index" >{{item.name}}</label>
       </div>
     </li>
   </ul>
@@ -40,6 +40,10 @@ const props=defineProps({
   donecount:{
     type:Number,
     require:true
+  },
+  finished:{
+    type:Array,
+    require:true
   }
 })
 const emit =defineEmits([
@@ -50,9 +54,6 @@ const remove =(index)=>{
 }
 const change = ()=>{
   emit('change')
-}
-const finished=()=>{
-  emit('finished')
 }
  console.log(props.state)
 </script>
