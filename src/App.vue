@@ -15,9 +15,9 @@
 <script   setup lang="ts">
 import Child from './components/Child.vue'
 import { reactive,ref,computed} from "vue";
-const input =ref([])
-const count = ref(3)
-const donecount = ref(0)
+const input =ref<Object>([])
+const count = ref<number>(3)
+const donecount = ref<number>(0)
 const remove= (index) =>{
       count.value--;
      state.lists.splice(index,1)
