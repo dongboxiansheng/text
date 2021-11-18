@@ -16,6 +16,9 @@
 import Child from './components/Child.vue'
 import { reactive,ref,computed} from "vue";
 const input =ref<Object>([])
+// const info:[string,number,boolean]
+// const count =info[2]
+// const 
 const count = ref<number>(3)
 const donecount = ref<number>(0)
 const remove= (index) =>{
