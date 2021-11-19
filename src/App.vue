@@ -32,16 +32,17 @@ const input =ref<string>('')
 // const 
 // const count = ref<number>(3)
 // const donecount = ref<number>(0)
-const remove=(index) =>{
+const remove=(index)=>{
       // count.value--;
      state.lists.splice(index,1)
+     localStorage.setItem('state',JSON.stringify(state))
    }
   // const change:any = ()=>{
   //   count.value--;
   //   donecount.value++;
   //   console.log(finished.value);
   // }
-
+  
   const add:any = ()=>{
    state.lists.push({
       name:input.value,
@@ -49,7 +50,9 @@ const remove=(index) =>{
       //  isEdit:false,
    })
    state.value =''
+   localStorage.setItem('state',JSON.stringify(state))
 }
+
 const state:Config =reactive({
   value:'',
   lists:[
@@ -70,12 +73,15 @@ const state:Config =reactive({
       } 
   ],
 })
+localStorage.setItem('state',JSON.stringify(state))
 const finished = computed(()=>{
   return state.lists.filter((item)=>item.checked==true)
 })
 const finishing =computed(()=>{
   return state.lists.filter((item)=>item.checked==false)
 })
+
+
 console.log(finishing.value);
 
 </script>
