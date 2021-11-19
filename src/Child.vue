@@ -1,9 +1,9 @@
 <template>
 <el-form class="demo-ruleForm">
 <div class="card-header">
-    <h3>正在进行 <span>{{finishing.length}}</span></h3>
-        <el-scrollbar max-height="150px">
-           <ul>
+      <ul>
+        <h3>正在进行 <span>{{finishing.length}}</span></h3>
+        <br>
       <li v-for="(item,index) in finishing" :key="index">
       <div class="form-group form-check" >
         <el-checkbox v-model="item.checked" :id="'item-'+index" @click="change">
@@ -14,11 +14,9 @@
         <el-button type="danger" @click="remove(index)">删除</el-button>
       </div>
     </li>
-    
-        </ul>
-        </el-scrollbar>
-      <h3>已完成的 <span>{{finished.length}}</span></h3>
-        <ul>
+    <br>
+        <h3>已完成的 <span>{{finished.length}}</span></h3>
+        <br>
     <li  v-for="(item,index) in finished" :key="'finished-'+index">
       <div class="form-group form-check">
         <el-checkbox v-model="item.checked" :id="'finished-'+index" >
@@ -34,7 +32,7 @@
 <script setup lang="ts">
 
 import { defineProps,defineEmits } from 'vue'
-const props=defineProps({
+const props:any=defineProps({
   state:{
     type:Object,
     require:true

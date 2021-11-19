@@ -8,20 +8,31 @@
   </div>
    <br>
    <br>
-  <Child :state="state" @remove="remove"  :finished="finished" :count="count" :donecount="donecount" :finishing="finishing"></Child>
+  <Child :state="state" @remove="remove"  :finished="finished"  :finishing="finishing"></Child>
   </el-form>
 </template>
 
 <script   setup lang="ts">
 import Child from './components/Child.vue'
 import { reactive,ref,computed} from "vue";
-const input =ref<Object>([])
+// interface Config{
+//   <T>(value: T):T;
+// }
+interface Config{
+  value:string,
+  lists?:Array<any>
+}
+// function identity<T>(arg:T):T{
+//     return arg;
+// }
+// let input:{<T>(arg:T):T}=identity;
+const input =ref<string>('')
 // const info:[string,number,boolean]
 // const count =info[2]
 // const 
-const count = ref<number>(3)
-const donecount = ref<number>(0)
-const remove= (index) =>{
+// const count = ref<number>(3)
+// const donecount = ref<number>(0)
+const remove=(index) =>{
       // count.value--;
      state.lists.splice(index,1)
    }
@@ -32,31 +43,30 @@ const remove= (index) =>{
   // }
 
   const add:any = ()=>{
-  count.value++;
    state.lists.push({
       name:input.value,
        checked:false,
-       isEdit:false,
+      //  isEdit:false,
    })
    state.value =''
 }
-const state:any =reactive({
+const state:Config =reactive({
   value:'',
   lists:[
     {
         name :'1',
         checked:false,
-        isEdit:false
+        // isEdit:false
       },
       {
         name:'2',
         checked:false,
-        isEdit:false
+        // isEdit:false
       },
       {
         name:'3',
         checked:false,
-        isEdit:false
+        // isEdit:false
       } 
   ],
 })
@@ -66,6 +76,8 @@ const finished = computed(()=>{
 const finishing =computed(()=>{
   return state.lists.filter((item)=>item.checked==false)
 })
+console.log(finishing.value);
+
 </script>
 
 <style lang="scss">
